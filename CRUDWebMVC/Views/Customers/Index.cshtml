@@ -1,0 +1,35 @@
+@model IEnumerable<CRUDWebMVC.Models.Entity.Customer>
+@{
+    ViewBag.Title = "Costumers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+@if(!@Model.Any())
+{
+    <p>"We don't have any customers yet"</p>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Customers</th>
+                <th>Membership Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var customer in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(customer.Name, "Detail", new {Id = customer.Id})
+                    </td>
+                    <td>
+                        @customer.MemberShipType.Name
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
