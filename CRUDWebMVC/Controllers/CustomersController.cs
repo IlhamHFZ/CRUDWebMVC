@@ -1,3 +1,4 @@
+using CRUDWebMVC.Models.ViewModel;
 using CRUDWebMVC.Presistance;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -39,4 +40,15 @@ public class CustomersController : Controller
 		return View(customer);
 	}
 	
+	[Route("New")]
+	public async Task<ActionResult> New()
+	{
+		var membershipType = await _db.MembershipTypes.ToListAsync();
+		var viewModel = new CustomerFormViewModel()
+		{
+			MembershipTypes = membershipType
+		};
+		
+		return View(viewModel);
+	}
 }

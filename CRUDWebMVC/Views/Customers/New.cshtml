@@ -1,0 +1,29 @@
+@model CRUDWebMVC.Models.ViewModel.CustomerFormViewModel
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>New Customer</h2>
+@using(Html.BeginForm("Create", "Customers"))
+{
+    <div class="form-group">
+        @Html.LabelFor(cst => cst.Name)
+        @Html.TextBoxFor(cst => cst.Name, new {@class = "form-control"})
+    </div>
+    <div>
+        @Html.LabelFor(cst => cst.BirthDay)
+        @Html.TextBoxFor(cst => cst.BirthDay, new {@class = "form-control"})
+    </div>
+    <div>
+        @Html.LabelFor(cst => cst.MembershipTypes)
+        @Html.DropDownListFor(cst => cst.MembershipTypes, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select Membership type", new {@class = "form-control"})
+    </div>
+    <div class="form-check">
+        @Html.CheckBoxFor(cst => cst.IsSubscribedToNewsletter)
+        <label class="form-check-label">
+            @Html.LabelFor(cst => cst.IsSubscribedToNewsletter)
+        </label>
+    </div>
+
+}
