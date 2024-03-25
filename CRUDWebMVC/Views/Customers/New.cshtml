@@ -13,7 +13,7 @@
     </div>
     <div>
         @Html.LabelFor(cst => cst.BirthDay)
-        @Html.TextBoxFor(cst => cst.BirthDay, new {@class = "form-control"})
+        @Html.TextBoxFor(cst => cst.BirthDay,"{0:yyyy-MM-dd}", new {@class = "form-control", type = "date"})
     </div>
     <div>
         @Html.LabelFor(cst => cst.MembershipTypes)

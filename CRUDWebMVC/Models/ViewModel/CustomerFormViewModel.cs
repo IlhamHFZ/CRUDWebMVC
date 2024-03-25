@@ -5,7 +5,7 @@ namespace CRUDWebMVC.Models.ViewModel;
 
 public class CustomerFormViewModel
 {
-	[Required]
+	[Required(ErrorMessage = "Name is Required")]
 	[Display(Name = "Name")]
 	public string Name {get; set;} = null!;
 	
