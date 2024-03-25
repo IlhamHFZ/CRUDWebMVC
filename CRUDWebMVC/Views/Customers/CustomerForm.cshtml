@@ -16,8 +16,8 @@
         @Html.TextBoxFor(cst => cst.BirthDay,"{0:yyyy-MM-dd}", new {@class = "form-control", type = "date"})
     </div>
     <div>
-        @Html.LabelFor(cst => cst.MembershipTypes)
-        @Html.DropDownListFor(cst => cst.MembershipTypes, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select Membership type", new {@class = "form-control"})
+        @Html.LabelFor(cst => cst.MembershipTypeId)
+        @Html.DropDownListFor(cst => cst.MembershipTypeId, new SelectList(Model.ListMembershipTypes, "Id", "Name"), "Select Membership type", new {@class = "form-control"})
     </div>
     <div class="form-check">
         @Html.CheckBoxFor(cst => cst.IsSubscribedToNewsletter)
@@ -25,5 +25,7 @@
             @Html.LabelFor(cst => cst.IsSubscribedToNewsletter)
         </label>
     </div>
-
+    <button type="submit" class="btn btn-primary">
+        Save
+    </button>
 }

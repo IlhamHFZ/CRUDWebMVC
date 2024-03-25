@@ -1,3 +1,4 @@
+using CRUDWebMVC.Models.Entity;
 using CRUDWebMVC.Models.ViewModel;
 using CRUDWebMVC.Presistance;
 using Microsoft.AspNetCore.Mvc;
@@ -40,15 +41,64 @@ public class CustomersController : Controller
 		return View(customer);
 	}
 	
-	[Route("New")]
-	public async Task<ActionResult> New()
+	[HttpGet]
+	[Route("Create")]
+	public async Task<ActionResult> Crate()
 	{
 		var membershipType = await _db.MembershipTypes.ToListAsync();
 		var viewModel = new CustomerFormViewModel()
 		{
-			MembershipTypes = membershipType
+			ListMembershipTypes = membershipType
 		};
 		
-		return View(viewModel);
+		return View("CustomerForm",viewModel);
+	}
+	
+	[HttpPost]
+	public async Task<ActionResult> Create(CustomerFormViewModel viewModel)
+	{
+		var membershipType = await _db.MembershipTypes.FirstOrDefaultAsync(mbs => mbs.Id == viewModel.MembershipTypeId);
+		if(membershipType == null)
+		{
+			return NotFound();
+		}
+		
+		var customer = new Customer()
+		{
+			Name = viewModel.Name,
+			BirthDay = viewModel.BirthDay,
+			IsSubscribedToNewsletter = viewModel.IsSubscribedToNewsletter,
+			MemberShipType = membershipType
+		};
+		await _db.Customers.AddAsync(customer);
+		await _db.SaveChangesAsync();
+		
+		return RedirectToAction("Index", "Customers");
+	}
+	
+	[Route("Edit")]
+	public async Task<ActionResult> Edit(Guid Id)
+	{
+		var customer = await _db.Customers.Include(cst => cst.MemberShipType).FirstOrDefaultAsync(cst => cst.Id == Id);
+		if(customer == null)
+		{
+			return NotFound();
+		}
+		
+		var viewModel = new CustomerFormViewModel()
+		{
+			Name = customer.Name,
+			BirthDay = customer.BirthDay,
+			IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter,
+			MembershipTypeId = customer.MemberShipType.Id,
+			ListMembershipTypes = await _db.MembershipTypes.ToListAsync()
+		};
+		
+		if(viewModel == null)
+		{
+			return Content("ini kosong");
+		}
+		
+		return View("CustomerForm", viewModel);
 	}
 }
