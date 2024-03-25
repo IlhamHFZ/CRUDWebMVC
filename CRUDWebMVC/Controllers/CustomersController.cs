@@ -55,7 +55,7 @@ public class CustomersController : Controller
 	}
 	
 	[HttpPost]
-	public async Task<ActionResult> Create(CustomerFormViewModel viewModel)
+	public async Task<ActionResult> Save(CustomerFormViewModel viewModel)
 	{
 		var membershipType = await _db.MembershipTypes.FirstOrDefaultAsync(mbs => mbs.Id == viewModel.MembershipTypeId);
 		if(membershipType == null)
@@ -63,14 +63,27 @@ public class CustomersController : Controller
 			return NotFound();
 		}
 		
-		var customer = new Customer()
+		var customer = await _db.Customers.FirstOrDefaultAsync(cst => cst.Id == viewModel.Id);
+		if( customer == null)
 		{
-			Name = viewModel.Name,
-			BirthDay = viewModel.BirthDay,
-			IsSubscribedToNewsletter = viewModel.IsSubscribedToNewsletter,
-			MemberShipType = membershipType
-		};
-		await _db.Customers.AddAsync(customer);
+			var newCustomer = new Customer()
+			{
+				Name = viewModel.Name,
+				BirthDay = viewModel.BirthDay,
+				IsSubscribedToNewsletter = viewModel.IsSubscribedToNewsletter,
+				MemberShipType = membershipType
+			};
+			
+			await _db.Customers.AddAsync(newCustomer);
+		}
+		else
+		{
+			customer.Name = viewModel.Name;
+			customer.BirthDay = viewModel.BirthDay;
+			customer.IsSubscribedToNewsletter = viewModel.IsSubscribedToNewsletter;
+			customer.MemberShipType = membershipType;
+		}
+		
 		await _db.SaveChangesAsync();
 		
 		return RedirectToAction("Index", "Customers");
