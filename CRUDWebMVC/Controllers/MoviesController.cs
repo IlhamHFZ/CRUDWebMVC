@@ -102,4 +102,18 @@ public class MoviesController : Controller
 		
 		return RedirectToAction("Index", "Movies");
 	}
+	
+	public async Task<ActionResult> Delete(Guid Id)
+	{
+		var movie = await _db.Movies.FirstOrDefaultAsync(mvo => mvo.Id == Id);
+		if(movie == null)
+		{
+			return NotFound();
+		}
+		
+		_db.Movies.Remove(movie);
+		await _db.SaveChangesAsync();
+		
+		return RedirectToAction("Index", "Movies");
+	}
 }
