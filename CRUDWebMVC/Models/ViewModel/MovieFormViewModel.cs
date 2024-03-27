@@ -12,6 +12,7 @@ public class MovieFormViewModel
 	public string Name {get; set;} = null!;
 	
 	[Required(ErrorMessage = "Release Date is Required")]
+	[DisplayFormat(ApplyFormatInEditMode = true)]
 	[Display(Name = "Release Date")]
 	public DateTime ReleaseDate {get; set;}
 	
@@ -24,7 +25,10 @@ public class MovieFormViewModel
 	[Display(Name = "Stock")]
 	public int Stock {get; set;}
 	
+	[Required(ErrorMessage = "Please select one of genres")]
 	[Display(Name = "Genre")]
+	public Guid GenreId {get; set;}
+	
 	public IEnumerable<Genre> Genres {get; set;} = null!;
 	
 }

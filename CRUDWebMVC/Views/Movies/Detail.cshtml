@@ -12,3 +12,6 @@
     <li>Date Added: @Model.DateAdded.ToString("dd MMM yyyy")</li>
     <li>Number in Stock: @Model.Stock</li>
 </ul>
+<button type="button" class="btn btn-primary">
+    @Html.ActionLink("Edit","Edit", new {Id = Model.Id})
+</button>

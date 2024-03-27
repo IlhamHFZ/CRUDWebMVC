@@ -43,7 +43,7 @@ public class CustomersController : Controller
 	
 	[HttpGet]
 	[Route("Create")]
-	public async Task<ActionResult> Crate()
+	public async Task<ActionResult> Create()
 	{
 		var membershipType = await _db.MembershipTypes.ToListAsync();
 		var viewModel = new CustomerFormViewModel()
@@ -106,11 +106,6 @@ public class CustomersController : Controller
 			MembershipTypeId = customer.MemberShipType.Id,
 			ListMembershipTypes = await _db.MembershipTypes.ToListAsync()
 		};
-		
-		if(viewModel == null)
-		{
-			return Content("ini kosong");
-		}
 		
 		return View("CustomerForm", viewModel);
 	}
