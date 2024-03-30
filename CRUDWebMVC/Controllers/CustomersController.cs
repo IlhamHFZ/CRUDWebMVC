@@ -123,4 +123,18 @@ public class CustomersController : Controller
 		
 		return View("CustomerForm", viewModel);
 	}
+	
+	public async Task<ActionResult> Delete(Guid Id)
+	{
+		var customer = await _db.Customers.FirstOrDefaultAsync(cst => cst.Id == Id);
+		if(customer == null)
+		{
+			return NotFound();
+		}
+		
+		_db.Customers.Remove(customer);
+		await _db.SaveChangesAsync();
+		
+		return RedirectToAction("Index", "Customers");
+	}
 }
