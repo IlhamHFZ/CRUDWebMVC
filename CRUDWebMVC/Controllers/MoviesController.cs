@@ -70,6 +70,20 @@ public class MoviesController : Controller
 	[HttpPost]
 	public async Task<ActionResult> Save(MovieFormViewModel viewModel)
 	{
+		if(!ModelState.IsValid)
+		{
+			var viewModelRetry = new MovieFormViewModel()
+			{
+				Name = viewModel.Name,
+				ReleaseDate = viewModel.ReleaseDate,
+				DateAdded = viewModel.DateAdded,
+				Stock = viewModel.Stock,
+				GenreId = viewModel.GenreId,
+				Genres = await _db.Genres.ToListAsync()
+			};
+			return View("MovieForm", viewModelRetry);
+		}
+		
 		var genre = await _db.Genres.FirstOrDefaultAsync(gnr => gnr.Id == viewModel.GenreId);
 		if(genre == null)
 		{

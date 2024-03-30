@@ -18,6 +18,7 @@ else
     <div class="form-group">
         @Html.LabelFor(mvo => mvo.Name)
         @Html.TextBoxFor(mvo => mvo.Name, new {@class = "form-control"})
+        @Html.ValidationMessageFor(mvo => mvo.Name)
     </div>
     <div>
         @Html.LabelFor(mvo => mvo.ReleaseDate)

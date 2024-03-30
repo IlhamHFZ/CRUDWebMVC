@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using CRUDWebMVC.Attribute;
 using CRUDWebMVC.Models.Entity;
 
 namespace CRUDWebMVC.Models.ViewModel;
@@ -19,6 +20,7 @@ public class CustomerFormViewModel
 	
 	[Display(Name = "Membership Type")]
 	[Required(ErrorMessage = "Membership is Required")]
+	[MinYearMemberValidation]
 	public Guid MembershipTypeId {get; set;}
 	
 	public IEnumerable<MembershipType> ListMembershipTypes {get; set;} = null!;

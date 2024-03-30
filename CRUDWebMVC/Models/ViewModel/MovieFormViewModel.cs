@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using CRUDWebMVC.Models.Entity;
 
@@ -12,13 +13,12 @@ public class MovieFormViewModel
 	public string Name {get; set;} = null!;
 	
 	[Required(ErrorMessage = "Release Date is Required")]
-	[DisplayFormat(ApplyFormatInEditMode = true)]
 	[Display(Name = "Release Date")]
 	public DateTime ReleaseDate {get; set;}
 	
 	[Required(ErrorMessage = "Date Added is Required")]
-	[Display(Name = "Date of Added is Required")]
-	public DateTime DateAdded {get; set;}
+	[Display(Name = "Date of Added")]
+	public DateTime DateAdded {get; set;} 
 	
 	[Required(ErrorMessage = "Stock is Required")]
 	[Range(0, int.MaxValue, ErrorMessage = "stock must be large than 0")]

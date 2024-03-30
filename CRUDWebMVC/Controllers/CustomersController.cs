@@ -57,6 +57,19 @@ public class CustomersController : Controller
 	[HttpPost]
 	public async Task<ActionResult> Save(CustomerFormViewModel viewModel)
 	{
+		if(!ModelState.IsValid)
+		{
+			var viewModelRetry = new CustomerFormViewModel()
+			{
+				Name = viewModel.Name,
+				BirthDay = viewModel.BirthDay,
+				IsSubscribedToNewsletter = viewModel.IsSubscribedToNewsletter,
+				MembershipTypeId = viewModel.MembershipTypeId,
+				ListMembershipTypes = await _db.MembershipTypes.ToListAsync()
+			};
+			return View("CustomerForm", viewModelRetry);
+		}
+		
 		var membershipType = await _db.MembershipTypes.FirstOrDefaultAsync(mbs => mbs.Id == viewModel.MembershipTypeId);
 		if(membershipType == null)
 		{
