@@ -113,6 +113,7 @@ public class CustomersController : Controller
 		
 		var viewModel = new CustomerFormViewModel()
 		{
+			Id = customer.Id,
 			Name = customer.Name,
 			BirthDay = customer.BirthDay,
 			IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter,

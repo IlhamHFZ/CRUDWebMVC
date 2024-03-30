@@ -13,3 +13,9 @@
         <li>Birthdate: @Model.BirthDay.Value.ToString("dd MMM yyyy")</li>
     }
 </ul>
+<button type="button" class="btn btn-primary">
+    @Html.ActionLink("Edit", "Edit", new {Id = Model.Id})
+</button>
+<button type="button" class="btn btn-danger">
+    @Html.ActionLink("Delete", "Delete", new {Id = Model.Id})
+</button>

@@ -5,6 +5,9 @@
 }
 
 <h2>@ViewBag.Title</h2>
+<button type="button" onclick="location.href='@Url.Action("Create","Customer")'" class="btn btn-dark">
+    Create
+</button>
 @if(!@Model.Any())
 {
     <p>"We don't have any customers yet"</p>
@@ -23,7 +26,7 @@ else
             {
                 <tr>
                     <td>
-                        @Html.ActionLink(customer.Name, "Edit", new {Id = customer.Id})
+                        @Html.ActionLink(customer.Name, "Detail", new {Id = customer.Id})
                     </td>
                     <td>
                         @customer.MemberShipType.Name
