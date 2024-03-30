@@ -56,6 +56,7 @@ public class MoviesController : Controller
 		
 		var viewModel = new MovieFormViewModel()
 		{
+			Id = movie.Id,
 			Name = movie.Name,
 			ReleaseDate = movie.ReleaseDate,
 			DateAdded = movie.DateAdded,
